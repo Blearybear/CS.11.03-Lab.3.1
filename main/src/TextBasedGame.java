@@ -466,15 +466,24 @@ public class TextBasedGame {
 
     public static void checkGameEndWithoutReq() {
         if (health < 0) {
-            printString("you die");
+            printString("The minotaur charges, his thundering roar echoing through the stone corridors as he bowls you over with crushing force.");
+            printString("\nHis fetid breath washes over you as he pins you down, claws and horns rending flesh.");
+            printString("\nYou scream in agony as the razor-sharp points gouge into your gut, the beast tearing you asunder in a frenzy.");
+            printString("\nYour blood pools on the gritty floor as the light dims, the minotaur's guttural bellows ringing in your ears as oblivion takes you.");
             System.exit(0);
         } else if (minotaurHealth < 0 && !minoDead) {
-            printString("you kill minotaur");
+            printString("The minotaur staggers back with an ear-splitting shriek, black blood streaming from the mortal wound.");
+            printString("\nCrumpling to the floor, the fading cries of the minotaur turn into dust, carried off in the dank subterranean breeze.");
+            printString("\nOnly twisting horns remain amid scattered powder.");
             enemyInSight = false;
             minoDead = true;
             reqInput();
         } else if (yCoordinate == 3 && xCoordinate == 5) {
-            printString("you have escaped the labyrinth, you win");
+            printString("You emerge at last from the tunnels' sinister grasp, blinking against the sudden sunlight.");
+            printString("\nFresh air fills your lungs as you stand at the precipice, a grassy world sprawling before you.");
+            printString("\nFar below, birds wheel freely through clear skies.");
+            printString("\nThe ordeal within the minotaur's lair already seems a lifetime away.");
+            printString("\nYou made it through the labyrinth and now, beyond its shadow, the future lies ahead.");
             System.exit(0);
         }
     }
