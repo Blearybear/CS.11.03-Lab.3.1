@@ -35,6 +35,12 @@ public class TextBasedGame {
 
     static boolean minoDead = false;
 
+    static boolean mapOnGround = false;
+
+    static boolean hasMap = false;
+
+    static int steps = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("🪦 Labyrinth 🪦" + "\n[Enter \"start\" to start the game]");
@@ -71,6 +77,10 @@ public class TextBasedGame {
         reqInput();
     }
 
+    public static int random(int min, int max) {
+        return (int) Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
     public static void printCoordinates() {
         System.out.println("X: " + xCoordinate + "\nY: " + yCoordinate);
         reqInput();
@@ -79,12 +89,11 @@ public class TextBasedGame {
     public static void printInstructions() {
         String sen10 = "\n[Direction keys: n e s w]";
         String sen11 = "[Check stats: stats]";
-        String sen12 = "[Punch: punch] [Kick: kick] [Swing sword: swing] [Pick up item: pick] [Drink vial: drink]";
+        String sen12 = "[Punch: punch] [Kick: kick] [Swing sword: swing] [Pick up item: pick] [Drink vial: drink] [Location: loc]";
         System.out.println(sen10);
         System.out.println(sen11);
         System.out.println(sen12);
     }
-
 
     public static void printString(String str) {
         for (int i = 0; i < str.length(); i++) {
@@ -96,16 +105,18 @@ public class TextBasedGame {
     public static void north() {
         if (north) {
             yCoordinate++;
+            steps++;
             hpPotionOnGround = false;
             strengthPotionOnGround = false;
             swordOnGround = false;
+            mapOnGround = false;
             enemyInSight = false;
             coordinateCheck();
             checkGameEndWithoutReq();
             printString("You open the door at the north side of the room and enter a nearly identical chamber.");
             printString("\nThe door closes with an ominous \"boom\" behind you.");
-            int random = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
-            if (random <= 15 && minoDead == false) {
+            int random = random(0, 100);
+            if (random <= 15 && !minoDead) {
                 enemyInSight = true;
                 printString("\nAs you creep into the shadowy chamber, a pair of baleful red eyes suddenly glare at you from the darkness.");
                 printString("\nWith a guttural growl, the minotaur emerges into a shaft of light, his massive horned head lowered aggressively.");
@@ -125,12 +136,16 @@ public class TextBasedGame {
                 printString("\nLying discarded on the dusty floor is an ancient sword, its blade still keen despite the passing ages.");
                 swordOnGround = true;
                 reqInput();
+            } else if (random > 50 && random <= 52 && !hasMap && (steps > 5 && steps % 5 == 0)) {
+                printString("\nYou also notice a dusty piece of papyrus lying on the ground.");
+                mapOnGround = true;
+                reqInput();
             } else {
                 reqInput();
             }
         } else {
             System.out.println("You walk north and unfortunately hit your head. ");
-            health = health - (int) Math.floor(Math.random() * (20 - 10 + 1) + 10);
+            health = health - random(10, 20);
             System.out.println("Health: " + health);
             checkGameEnd();
         }
@@ -139,16 +154,19 @@ public class TextBasedGame {
     public static void east() {
         if (east) {
             xCoordinate++;
+            steps++;
             hpPotionOnGround = false;
             strengthPotionOnGround = false;
             swordOnGround = false;
+            mapOnGround = false;
             enemyInSight = false;
             coordinateCheck();
             checkGameEndWithoutReq();
             printString("You open the door at the east side of the room and enter a nearly identical chamber.");
             printString("\nThe door closes with an ominous \"boom\" behind you.");
-            int random = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
-            if (random <= 15 && minoDead == false) {
+            int random = random(0, 100);
+            ;
+            if (random <= 15 && !minoDead) {
                 enemyInSight = true;
                 printString("\nAs you creep into the shadowy chamber, a pair of baleful red eyes suddenly glare at you from the darkness.");
                 printString("\nWith a guttural growl, the minotaur emerges into a shaft of light, his massive horned head lowered aggressively.");
@@ -168,12 +186,16 @@ public class TextBasedGame {
                 printString("\nLying discarded on the dusty floor is an ancient sword, its blade still keen despite the passing ages.");
                 swordOnGround = true;
                 reqInput();
+            } else if (random > 50 && random <= 52 && !hasMap && (steps > 5 && steps % 5 == 0)) {
+                printString("\nYou also notice a dusty piece of papyrus lying on the ground.");
+                mapOnGround = true;
+                reqInput();
             } else {
                 reqInput();
             }
         } else {
             System.out.println("You walk east and unfortunately hit your head. ");
-            health = health - (int) Math.floor(Math.random() * (20 - 10 + 1) + 10);
+            health = health - random(10, 20);
             System.out.println("Health: " + health);
             checkGameEnd();
         }
@@ -182,16 +204,18 @@ public class TextBasedGame {
     public static void south() {
         if (south) {
             yCoordinate--;
+            steps++;
             hpPotionOnGround = false;
             strengthPotionOnGround = false;
             swordOnGround = false;
+            mapOnGround = false;
             enemyInSight = false;
             coordinateCheck();
             checkGameEndWithoutReq();
             printString("You open the door at the south side of the room and enter a nearly identical chamber.");
             printString("\nThe door closes with an ominous \"boom\" behind you.");
-            int random = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
-            if (random <= 15 && minoDead == false) {
+            int random = random(0, 100);
+            if (random <= 15 && !minoDead) {
                 enemyInSight = true;
                 printString("\nAs you creep into the shadowy chamber, a pair of baleful red eyes suddenly glare at you from the darkness.");
                 printString("\nWith a guttural growl, the minotaur emerges into a shaft of light, his massive horned head lowered aggressively.");
@@ -211,12 +235,16 @@ public class TextBasedGame {
                 printString("\nLying discarded on the dusty floor is an ancient sword, its blade still keen despite the passing ages.");
                 swordOnGround = true;
                 reqInput();
+            } else if (random > 50 && random <= 52 && !hasMap && (steps > 5 && steps % 5 == 0)) {
+                printString("\nYou also notice a dusty piece of papyrus lying on the ground.");
+                mapOnGround = true;
+                reqInput();
             } else {
                 reqInput();
             }
         } else {
             System.out.println("You walk south and unfortunately hit your head. ");
-            health = health - (int) Math.floor(Math.random() * (20 - 10 + 1) + 10);
+            health = health - random(10, 20);
             System.out.println("Health: " + health);
             checkGameEnd();
         }
@@ -225,15 +253,17 @@ public class TextBasedGame {
     public static void west() {
         if (west) {
             xCoordinate--;
+            steps++;
             hpPotionOnGround = false;
             strengthPotionOnGround = false;
             swordOnGround = false;
+            mapOnGround = false;
             enemyInSight = false;
             coordinateCheck();
             checkGameEndWithoutReq();
             printString("You open the door at the west side of the room and enter a nearly identical chamber.");
             printString("\nThe door closes with an ominous \"boom\" behind you.");
-            int random = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
+            int random = random(0, 100);
             if (random <= 15 && minoDead == false) {
                 enemyInSight = true;
                 printString("\nAs you creep into the shadowy chamber, a pair of baleful red eyes suddenly glare at you from the darkness.");
@@ -254,12 +284,16 @@ public class TextBasedGame {
                 printString("\nLying discarded on the dusty floor is an ancient sword, its blade still keen despite the passing ages.");
                 swordOnGround = true;
                 reqInput();
+            } else if (random > 50 && random <= 52 && !hasMap && (steps > 5 && steps % 5 == 0)) {
+                printString("\nYou also notice a dusty piece of papyrus lying on the ground.");
+                mapOnGround = true;
+                reqInput();
             } else {
                 reqInput();
             }
         } else {
             System.out.println("You walk west and unfortunately hit your head. ");
-            health = health - (int) Math.floor(Math.random() * (20 - 10 + 1) + 10);
+            health = health - random(10, 20);
             System.out.println("Health: " + health);
             checkGameEnd();
         }
@@ -272,7 +306,7 @@ public class TextBasedGame {
                 System.out.println("Minotaur: \"ROARRR!\"");
                 System.out.println("Minotaur Health: " + minotaurHealth);
                 checkGameEndWithoutReq();
-                int minoAttack = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
+                int minoAttack = random(0, 100);
                 if (minoAttack <= 10) {
                     minotaurAttack();
                 } else {
@@ -280,19 +314,18 @@ public class TextBasedGame {
                 }
             } else {
                 printString("You throw your fist out in front of you and hit nothing. ");
-                strength = strength -= Math.floor(Math.random() * (2 - 0 + 1) + 0);
+                strength = strength - random(0, 2);
                 System.out.println("\nStrength: " + strength);
                 checkGameEnd();
             }
         } else {
             printString("You attempt to raise your arm but it involuntarily drops. ");
-            strength = strength - (int) Math.floor(Math.random() * (2 - 0 + 1) + 0);
+            strength = strength - random(0, 2);
             System.out.println("Strength: " + strength);
-            health = health - (int) Math.floor(Math.random() * (5 - 3 + 1) + 3);
+            health = health - random(3, 5);
             System.out.println("Health: " + health);
             checkGameEnd();
         }
-
     }
 
     public static void kick() {
@@ -302,7 +335,7 @@ public class TextBasedGame {
                 System.out.println("Minotaur: \"ROARRR!\"");
                 System.out.println("Minotaur Health: " + minotaurHealth);
                 checkGameEndWithoutReq();
-                int minoAttack = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
+                int minoAttack = random(0, 100);
                 if (minoAttack <= 13) {
                     minotaurAttack();
                 } else {
@@ -310,15 +343,15 @@ public class TextBasedGame {
                 }
             } else {
                 printString("You swing your foot in front of you and hit nothing, making you lose your balance and feel slightly disoriented.");
-                strength = strength - (int) Math.floor(Math.random() * (15 - 10 + 1) + 10);
+                strength = strength - random(10, 15);
                 System.out.println("\nStrength: " + strength);
                 checkGameEnd();
             }
         } else {
             printString("You attempt to lift your leg to perform a kick but collapses instead.");
-            strength = strength - (int) Math.floor(Math.random() * (15 - 10 + 1) + 10);
+            strength = strength - random(10, 15);
             System.out.println("\nStrength: " + strength);
-            health = health - (int) Math.floor(Math.random() * (15 - 10 + 1) + 10);
+            health = health - random(10, 15);
             System.out.println("\nHealth: " + health);
             checkGameEnd();
         }
@@ -327,11 +360,11 @@ public class TextBasedGame {
     public static void swing() {
         if (swordSwing) {
             if (enemyInSight) {
-                minotaurHealth = minotaurHealth - (int) (strength * ((Math.floor(Math.random() * (300 - 150 + 1) + 150) / 1000)));
+                minotaurHealth = minotaurHealth - strength * (random(150, 300) / 1000);
                 System.out.println("Minotaur: \"ROARRRRRR\"");
                 System.out.println("Minotaur Health: " + minotaurHealth);
                 checkGameEndWithoutReq();
-                int minoAttack = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
+                int minoAttack = random(0, 100);
                 if (minoAttack <= 24) {
                     minotaurAttack();
                 } else {
@@ -339,13 +372,13 @@ public class TextBasedGame {
                 }
             } else {
                 printString("You swing your sword and hear it whoosh through the air.");
-                strength = strength - (int) Math.floor(Math.random() * (15 - 10 + 1) + 10);
+                strength = strength - random(10, 15);
                 System.out.println("\nStrength: " + strength);
                 checkGameEnd();
             }
         } else {
             printString("You reach for your sword, but your hand closes on air.");
-            strength = strength - (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
+            strength = strength - random(1, 3);
             System.out.println("\nStrength: " + strength);
             checkGameEnd();
         }
@@ -368,6 +401,11 @@ public class TextBasedGame {
             strengthPotion++;
             strengthPotionOnGround = false;
             reqInput();
+        } else if (mapOnGround) {
+            printString("You picked up a map.");
+            hasMap = true;
+            mapOnGround = false;
+            reqInput();
         } else {
             printString("You reach down and hold up a handful of dirt and dust.");
             reqInput();
@@ -376,16 +414,16 @@ public class TextBasedGame {
     }
 
     public static void drink() {
-        int random = (int) Math.floor(Math.random() * (1 - 0 + 1) + 0);
+        int random = random(0, 1);
         if (random == 1 && hpPotion > 0) {
-            health = health + (int) Math.floor(Math.random() * (200 - 50 + 1) + 50);
+            health = health + random(50, 200);
             printString("You lift the vial of magical liquid to your lips.");
             printString("\nYou suddenly feel freezing cold, despite the warmth of the torches lighting up the room.");
             printString("\nThe iciness reaches deep inside you, and for a moment you hallucinate that you are surrounded by a howling blizzard at the north pole.");
             System.out.println("\nHealth: " + health);
             reqInput();
         } else if (strengthPotion > 0) {
-            strength = strength + (int) Math.floor(Math.random() * (200 - 50 + 1) + 50);
+            strength = strength + random(50, 200);
             printString("You lift the vial of magical liquid to your lips.");
             printString("\nThe solution burns in your mouth.");
             printString("\nYou momentarily feel as if you were engulfed in a sea of fire.");
@@ -402,20 +440,20 @@ public class TextBasedGame {
         printString("The monstrous minotaur bellows, the guttural roar echoing through the shadowy labyrinth.");
         printString("\nHis bulging muscles ripple under coarse fur as he stampedes toward you, cloven hooves pounding the stone floor.");
         printString("\nLowering his colossal horned head, eyes burning with murderous fury, he lunges forth.");
-        int rand = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
+        int rand = random(0, 100);
         if (rand <= 3) {
             canPunch = false;
             printString("\nBlood gushes out from your arm as the monster's horns impales it.");
-            health = health - (int) Math.floor(Math.random() * (160 - 50 + 1) + 50);
-            strength = strength - (int) Math.floor(Math.random() * (160 - 50 + 1) + 50);
+            health = health - random(50, 160);
+            strength = strength - random(50, 160);
             System.out.println("\nHealth: " + health);
             System.out.println("\nStrength: " + strength);
             checkGameEnd();
         } else if (rand > 3 && rand <= 5) {
             canKick = false;
             printString("\nBlood bursts from your leg as the monster's horns impales it.");
-            health = health - (int) Math.floor(Math.random() * (200 - 70 + 1) + 70);
-            strength = strength - (int) Math.floor(Math.random() * (200 - 70 + 1) + 70);
+            health = health - random(70, 200);
+            strength = strength - random(70, 200);
             System.out.println("\nHealth: " + health);
             System.out.println("\nStrength: " + strength);
             checkGameEnd();
@@ -425,8 +463,8 @@ public class TextBasedGame {
             swordOnGround = true;
             reqInput();
         } else {
-            health = health - (int) Math.floor(Math.random() * (120 - 30 + 1) + 30);
-            strength = strength - (int) Math.floor(Math.random() * (120 - 30 + 1) + 30);
+            health = health - random(30, 120);
+            strength = strength - random(30, 120);
             printString("\nThe twisting horns of the minotaur bash against your chest with the force of a battering ram, knocking the wind from your lungs.");
             printString("\nYou are hurled backwards through the musty dungeon air, your body slamming heavily into the rough-hewn stone wall before crumpling to the sandy floor.");
             printString("\nWheezing faintly as you struggle to regain your breath and stand up, the bitter taste of blood seeps into your mouth while pain throbs across your battered back.");
@@ -519,6 +557,13 @@ public class TextBasedGame {
         }
     }
 
+    public static String loc() {
+        if (hasMap) {
+            return "X: " + xCoordinate + "\nY: " + yCoordinate;
+        } else {
+            return "Unfortunately, you do not have a map.";
+        }
+    }
 
     //Math.floor(Math.random() *(max - min + 1) + min)
     // for random int
@@ -527,7 +572,7 @@ public class TextBasedGame {
         Scanner input = new Scanner(System.in);
         System.out.println("\n");
         String d1 = input.nextLine();
-        while (!d1.equals("n") && !d1.equals("e") && !d1.equals("s") && !d1.equals("w") && !d1.equals("punch") && !d1.equals("kick") && !d1.equals("swing") && !d1.equals("pick") && !d1.equals("stats") && !d1.equals("drink") && !d1.equals("coords")) {
+        while (!d1.equals("n") && !d1.equals("e") && !d1.equals("s") && !d1.equals("w") && !d1.equals("punch") && !d1.equals("kick") && !d1.equals("swing") && !d1.equals("pick") && !d1.equals("stats") && !d1.equals("drink") && !d1.equals("coords") && !d1.equals("loc")) {
             d1 = input.nextLine();
         }
         if (d1.equals("stats")) {
@@ -556,6 +601,9 @@ public class TextBasedGame {
             printString("Hidden command for bug tests, you shouldn't know this!");
             reqInput();
             //printCoordinates();
+        } else if (d1.equals("loc")) {
+            printString(loc());
+            reqInput();
         }
     }
 }
